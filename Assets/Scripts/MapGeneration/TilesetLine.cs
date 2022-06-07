@@ -5,13 +5,22 @@ using UnityEngine;
 public class TilesetLine : MonoBehaviour
 {
     public EndlessScrollingManager endlessScrollingManager;
-    [SerializeField] private Transform[] _tilesPrefabs;
+    private Transform[] _tilesPrefabs;
     private List<Tile> _spawnedTiles;
     [SerializeField] private Transform[] _tilesTransforms;
 
-    private void Awake()
+    public void Init(TilePrefabsManager tilePrefabsManager)
     {
+        _tilesPrefabs = tilePrefabsManager.tilePrefabs.ToArray();
         _spawnedTiles = new List<Tile>();
+        foreach (Transform tilePrefab in _tilesPrefabs)
+        {
+            for(int i=0; i<29; i++)
+            {
+                SpawnTile(tilePrefab, i, false);
+            }
+        }
+        
     }
 
     public TileData[] UpdateTiles(TileData[] tilesData)
@@ -36,22 +45,23 @@ public class TilesetLine : MonoBehaviour
     private Tile GetTile(TileData tileData)
     {
         List<Tile> avTiles = new List<Tile>();
-        foreach(Tile t in _spawnedTiles)
+        foreach (Transform tTransform in _tilesPrefabs)
         {
-            if(!t.positionSet && t.CanBeSet(tileData))
+            Tile t = tTransform.GetComponent<Tile>();
+            if(t.CanBeSet(tileData))
+                avTiles.Add(t);
+        }
+
+        int rng = Random.Range(0, avTiles.Count);
+        Tile tileToReturn = avTiles[rng];
+
+        foreach (Tile t in _spawnedTiles)
+        {
+            if(!t.positionSet && t.id == tileToReturn.id)
                 return t;
         }
 
-        List<Tile> avTilesToSpawn = new List<Tile>();
-        foreach (var tPrefab in _tilesPrefabs)
-        {
-            Tile t = tPrefab.GetComponent<Tile>();
-            if(t.CanBeSet(tileData))
-                return _spawnedTiles[SpawnTile(tPrefab)];
-        }
-
-        SpawnTile(_tilesPrefabs[0]);
-        return _spawnedTiles[0];
+        return _spawnedTiles[SpawnTile(tileToReturn.GetTransform())];
     }
 
     public void SetTilesetPosition(Vector3 newPosition)
@@ -73,7 +83,24 @@ public class TilesetLine : MonoBehaviour
     private int SpawnTile(Transform tilePrefab)
     {
         // Spawn tilePrefab
-        Transform tempTileTransform = Instantiate(tilePrefab, new Vector3(0f, 0f, 0f), transform.rotation) as Transform;
+        Transform tempTileTransform = Instantiate(tilePrefab, new Vector3(0, -10f, -50f), transform.rotation) as Transform;
+        //Add new tile to spawnedTiles list
+        Tile tempTile = tempTileTransform.GetComponent<Tile>();
+        _spawnedTiles.Add(tempTile);
+        return (_spawnedTiles.Count - 1);
+    }
+
+    private int SpawnTile(Transform tilePrefab, int tileIndex, bool isVisible = true)
+    {
+        // Spawn tilePrefab
+        Transform tempTileTransform = Instantiate(tilePrefab, new Vector3(0, -10f, -50f), transform.rotation) as Transform;
+        // Set position
+        tempTileTransform.parent = _tilesTransforms[tileIndex];
+        if(isVisible)
+            tempTileTransform.localPosition = new Vector3(0f, 0f, 0f);
+        else
+            tempTileTransform.localPosition = new Vector3(0, -10f, -50f);
+        
         //Add new tile to spawnedTiles list
         Tile tempTile = tempTileTransform.GetComponent<Tile>();
         _spawnedTiles.Add(tempTile);
@@ -84,6 +111,13 @@ public class TilesetLine : MonoBehaviour
     {
         if(other.tag == "PlayZoneEnd")
         {
+            foreach (Tile t in _spawnedTiles)
+            {
+                t.positionSet = false;
+                t.GetTransform().localPosition = new Vector3(0, -10f, -50f);
+            }
+                
+            
             endlessScrollingManager.UpdateTilesetLine(this);
         }
     }

@@ -17,7 +17,7 @@ public class TileData
         x = 1;
         y = -1;
         z = 1;
-        nx = 1;
+        nx = 0;
         ny = -1;
         nz = 1;
     }
@@ -31,10 +31,16 @@ public class TileData
         ny = _ny;
         nz = _nz;
     }
+
+    public void LogTileData()
+    {
+        Debug.Log("x: " + x + ", y: " + y + ", z: " + z + ", -x: " + nx + ", -y: " + ny + ", -z: " + nz);
+    }
 }
 
 public class Tile : MonoBehaviour
 {
+    public int id;
     public TileData tileData;
     public bool positionSet;
 
@@ -42,10 +48,14 @@ public class Tile : MonoBehaviour
 
     public bool CanBeSet(TileData tileDataToCheck)
     {
+        // tileDataToCheck.LogTileData();
+
         if(tileDataToCheck.nz != 0 && tileDataToCheck.nz != tileData.nz)
             return false;
+            
         if(tileDataToCheck.nx != 0 && tileDataToCheck.nx != tileData.nx)
             return false;
+            
 
         return true;
     }

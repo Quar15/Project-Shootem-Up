@@ -9,6 +9,7 @@ public class EndlessScrollingManager : MonoBehaviour
     [SerializeField] private Transform _playArea;
 
     [Header("Tileset Lines")]
+    [SerializeField] private TilePrefabsManager _tilePrefabsManager;
     [SerializeField] private TilesetLine[] _tilesetLines;
     [SerializeField] public Transform startingTransform;
     private Transform currLineTransform;
@@ -16,6 +17,7 @@ public class EndlessScrollingManager : MonoBehaviour
 
     private void Start() 
     {
+        _tilePrefabsManager.Init();
         currLineTransform = startingTransform;
         // Setup first line visuals
         currTileData = new TileData[29];
@@ -26,6 +28,7 @@ public class EndlessScrollingManager : MonoBehaviour
         for (int i = 0; i < _tilesetLines.Length; i++)
         {
             TilesetLine tl = _tilesetLines[i];
+            tl.Init(_tilePrefabsManager);
             tl.endlessScrollingManager = this;
             UpdateTilesetLine(tl);
         }
