@@ -5,6 +5,7 @@ using UnityEngine;
 public class TilePrefabsManager : MonoBehaviour
 {
     public List<Transform> tilePrefabs;
+    public bool debugText;
 
     public void Init()
     {
@@ -12,7 +13,9 @@ public class TilePrefabsManager : MonoBehaviour
         foreach (Transform child in transform)
         {
             tilePrefabs.Add(child);
-            child.GetComponent<Tile>().id = i;
+            Tile t = child.GetComponent<Tile>();
+            t.id = i;
+            t.SetActiveDebugText(debugText);
             i++;
         }
     }

@@ -12,6 +12,7 @@ public class TilesetLine : MonoBehaviour
     public void Init(TilePrefabsManager tilePrefabsManager)
     {
         _tilesPrefabs = tilePrefabsManager.tilePrefabs.ToArray();
+        Debug.Log(_tilesPrefabs.Length);
         _spawnedTiles = new List<Tile>();
         foreach (Transform tilePrefab in _tilesPrefabs)
         {
@@ -53,6 +54,13 @@ public class TilesetLine : MonoBehaviour
         }
 
         int rng = Random.Range(0, avTiles.Count);
+        if(avTiles.Count == 0)
+        {
+            Debug.Log("rng: " + rng + ", avTiles.Count: " + avTiles.Count);
+            tileData.LogTileData();
+            return _spawnedTiles[0];
+        }
+        
         Tile tileToReturn = avTiles[rng];
 
         foreach (Tile t in _spawnedTiles)
