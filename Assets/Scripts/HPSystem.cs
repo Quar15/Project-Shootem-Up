@@ -4,15 +4,87 @@ using UnityEngine;
 
 public class HPSystem : MonoBehaviour
 {
+    public string damageTag;
+
+    public int health = 1;
+    public float invisTime = 0;
+
+    float _flashingTimeout = 0;
+    bool _isDodging = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (_flashingTimeout > 0)
+        {
+            _flashingTimeout -= Time.deltaTime;
+        }
+    }
+
+    public bool IsFlashing()
+    {
+        return _flashingTimeout > 0;
+    }
+    public bool IsDodging()
+    {
+        return _isDodging;
+    }
+
+    public bool Damage(int damageAmount = 1)
+    {
+        if (_flashingTimeout <= 0 && !_isDodging)
+        {
+            health -= damageAmount;
+
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+                return true;
+            }
+
+            _flashingTimeout = invisTime;
+        }
+        return false;
+    }
+
+    public void SetFlashing(float time = -1)
+    {
+        _flashingTimeout = time == -1 ? invisTime : time;
+    }
+
+    public void StartDodge()
+    {
+        _isDodging = true;
+    }
+
+    public void EndDodge()
+    {
+        _isDodging = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == damageTag)
+        {
+            bool destroyed = Damage();
+
+            Bullet bullet = other.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                // Bullet is pirecing and destroyed target - should continue 
+                if (bullet.pierce && destroyed) return;
+
+                // Bullet hit when object is flashing / dodging - should pass through
+                if (_isDodging || (_flashingTimeout > 0 && _flashingTimeout < invisTime)) return;
+
+                Destroy(other.gameObject);
+            }
+        }
     }
 }
