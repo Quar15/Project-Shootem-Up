@@ -9,14 +9,16 @@ public class Player : MonoBehaviour
     public float normalSpeed = 14;
     public float flinchTime = 1;
 
-    float _currentSpeed;
-    float _previousSpeed;
+    public float _currentSpeed { get; set; }
+    public float _previousSpeed { get; set; }
+
+    public HPSystem _hpSystem { get; set; }
+    public Gun[] _guns { get; set; }
+
     bool _shouldFire;
     Vector3 _moveInput;
     EdgeLimiter _limiter;
-    HPSystem _hpSystem;
     Animator _shipAnimator;
-    Gun[] _guns;
     SpriteRenderer _shipSprite;
 
     // Start is called before the first frame update

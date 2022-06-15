@@ -12,10 +12,12 @@ public class HPSystem : MonoBehaviour
     float _flashingTimeout = 0;
     bool _isDodging = false;
 
+    ItemDrop _itemDrop;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        _itemDrop = GetComponent<ItemDrop>();
     }
 
     // Update is called once per frame
@@ -44,6 +46,11 @@ public class HPSystem : MonoBehaviour
 
             if (health <= 0)
             {
+                if (_itemDrop != null)
+                {
+                    _itemDrop.RollItemDrop();
+                }
+
                 Destroy(gameObject);
                 return true;
             }
