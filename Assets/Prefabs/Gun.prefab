@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 2371224286384927441, guid: d7b70e0edd756e348b17505a6ef77b4a, type: 3}
-  bulletParent: {fileID: 0}
-  autoFire: 0
-  fireDelay: 0.1
-  bulletSpeed: 30
+  autoFire: 1
+  initialDelay: 0
+  fireDelay: 0.7
+  bulletSpeedMultiplier: 0.3

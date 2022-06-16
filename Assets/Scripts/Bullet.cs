@@ -5,7 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Vector3 direction;
-    public float speed = 2;
+    public float speed = 20;
+    public int damage = 1;
     public bool pierce = false;
 
     Vector3 _velocity;

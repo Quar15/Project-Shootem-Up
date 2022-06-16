@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public float _previousSpeed { get; set; }
 
     public HPSystem _hpSystem { get; set; }
-    public Gun[] _guns { get; set; }
+    public GunArray _gunArray { get; set; }
 
     bool _shouldFire;
     Vector3 _moveInput;
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
         _limiter = GetComponent<EdgeLimiter>();
         _hpSystem = GetComponent<HPSystem>();
         _shipAnimator = GetComponent<Animator>();
-        _guns = GetComponentsInChildren<Gun>();
+        _gunArray = GetComponentInChildren<GunArray>();
         _shipSprite = GetComponentInChildren<SpriteRenderer>();
 
     }
@@ -38,10 +38,7 @@ public class Player : MonoBehaviour
     {
         if (_shouldFire)
         {
-            foreach (Gun gun in _guns)
-            {
-                gun.Shoot();
-            }
+            _gunArray.Shoot();
         }
         if (_hpSystem.IsFlashing())
         {

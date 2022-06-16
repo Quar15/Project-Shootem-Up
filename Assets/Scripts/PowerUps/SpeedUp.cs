@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class SpeedUp : PowerUp
 {
-    public float speedBoost = 22;
+    public float speedMultiplier = 1.33f;
 
     override public void ApplyPowerUp(Player player)
     {
-        player.normalSpeed = speedBoost;
+        player.normalSpeed *= speedMultiplier;
 
         if (player._currentSpeed == player.preciseSpeed)
         {
-            player._previousSpeed = speedBoost;
+            player._previousSpeed = player.normalSpeed;
         } else
         {
-            player._currentSpeed = speedBoost;
+            player._currentSpeed = player.normalSpeed;
         }
     }
 }

@@ -7,6 +7,7 @@ public class HPSystem : MonoBehaviour
     public string damageTag;
 
     public int health = 1;
+    public int shield = 0;
     public float invisTime = 0;
 
     float _flashingTimeout = 0;
@@ -38,10 +39,21 @@ public class HPSystem : MonoBehaviour
         return _isDodging;
     }
 
+    public bool IsShieldUp()
+    {
+        return shield > 0;
+    }
+
     public bool Damage(int damageAmount = 1)
     {
         if (_flashingTimeout <= 0 && !_isDodging)
         {
+            if (shield > 0)
+            {
+                shield = Mathf.Max(shield - damageAmount, 0);
+                return false;
+            }
+
             health -= damageAmount;
 
             if (health <= 0)
@@ -77,9 +89,10 @@ public class HPSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == damageTag)
+        DamageDealer dDealer = other.GetComponent<DamageDealer>();
+        if (dDealer != null && dDealer.enemyTag == gameObject.tag)
         {
-            bool destroyed = Damage();
+            bool destroyed = Damage(dDealer.damageDealt);
 
             Bullet bullet = other.GetComponent<Bullet>();
             if (bullet != null)

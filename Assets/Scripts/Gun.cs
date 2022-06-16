@@ -5,7 +5,6 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public Bullet bullet;
-    public string bulletTag;
 
     public bool autoFire = false;
     public float initialDelay = 0;
@@ -46,7 +45,6 @@ public class Gun : MonoBehaviour
         if (_cooldown <= 0 && initialDelay <= 0)
         {
             GameObject go = Instantiate(bullet.gameObject, new Vector3(transform.position.x, transform.parent.position.y, transform.position.z), transform.rotation, PlayAreaManager.Instance.playArea);
-            go.tag = bulletTag;
 
             Bullet goBullet = go.GetComponent<Bullet>();
             goBullet.direction = _targetDirection;
