@@ -9,11 +9,12 @@ public class Player : MonoBehaviour
     public float normalSpeed = 14;
     public float flinchTime = 1;
 
-    public float _currentSpeed { get; set; }
-    public float _previousSpeed { get; set; }
+    public float currentSpeed { get; set; }
+    public float previousSpeed { get; set; }
 
-    public HPSystem _hpSystem { get; set; }
-    public GunArray _gunArray { get; set; }
+    public HPSystem hpSystem { get; set; }
+    public GunArray gunArray { get; set; }
+    public List<Follower> followers { get; set; }
 
     bool _shouldFire;
     Vector3 _moveInput;
@@ -21,16 +22,21 @@ public class Player : MonoBehaviour
     Animator _shipAnimator;
     SpriteRenderer _shipSprite;
 
+    [Header("Debug")]
+    [SerializeField] bool _player2spawned = false;
+    [SerializeField] GameObject _player2;
+
     // Start is called before the first frame update
     void Start()
     {
-        _currentSpeed = normalSpeed;
-        _limiter = GetComponent<EdgeLimiter>();
-        _hpSystem = GetComponent<HPSystem>();
-        _shipAnimator = GetComponent<Animator>();
-        _gunArray = GetComponentInChildren<GunArray>();
-        _shipSprite = GetComponentInChildren<SpriteRenderer>();
+        currentSpeed = normalSpeed;
+        hpSystem = GetComponent<HPSystem>();
+        gunArray = GetComponentInChildren<GunArray>();
+        followers = new List<Follower>();
 
+        _limiter = GetComponent<EdgeLimiter>();
+        _shipAnimator = GetComponent<Animator>();
+        _shipSprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -38,9 +44,13 @@ public class Player : MonoBehaviour
     {
         if (_shouldFire)
         {
-            _gunArray.Shoot();
+            gunArray.Shoot();
+            foreach(Follower follower in followers)
+            {
+                follower.FollowerShoot();
+            }
         }
-        if (_hpSystem.IsFlashing())
+        if (hpSystem.IsFlashing())
         {
             _shipSprite.enabled = !_shipSprite.enabled;
         }
@@ -49,14 +59,14 @@ public class Player : MonoBehaviour
             _shipSprite.enabled = true;
         }
 
-        _shipAnimator.SetBool("dodge", _hpSystem.IsDodging());
+        _shipAnimator.SetBool("dodge", hpSystem.IsDodging());
     }
 
     private void FixedUpdate()
     {
         Vector3 pos = transform.localPosition;
 
-        pos += _moveInput * _currentSpeed * Time.fixedDeltaTime;
+        pos += _moveInput * currentSpeed * Time.fixedDeltaTime;
 
         transform.localPosition = _limiter.Delimit(pos);
     }
@@ -73,12 +83,12 @@ public class Player : MonoBehaviour
     {
         if (value.Get<float>() > 0.5f)
         {
-            _previousSpeed = _currentSpeed;
-            _currentSpeed = preciseSpeed;
+            previousSpeed = currentSpeed;
+            currentSpeed = preciseSpeed;
         }
         else
         {
-            _currentSpeed = _previousSpeed;
+            currentSpeed = previousSpeed;
         }
     }
 
@@ -89,9 +99,21 @@ public class Player : MonoBehaviour
 
     void OnDodge(InputValue value)
     {
-        if (!_hpSystem.IsDodging())
+        if (!hpSystem.IsDodging())
         {
-            _hpSystem.StartDodge();
+            hpSystem.StartDodge();
+        }
+    }
+
+    // TODO: Implement prod version
+    void OnSpawnPlayer()
+    {if (!_player2spawned)
+        {
+            GameObject newPlayer = Instantiate(_player2, transform.localPosition, Quaternion.identity, transform.parent);
+
+            newPlayer.GetComponent<Player>().hpSystem.SetFlashing(4);
+
+            _player2spawned = true;
         }
     }
 }

@@ -10,12 +10,12 @@ public class SpeedUp : PowerUp
     {
         player.normalSpeed *= speedMultiplier;
 
-        if (player._currentSpeed == player.preciseSpeed)
+        if (player.currentSpeed == player.preciseSpeed)
         {
-            player._previousSpeed = player.normalSpeed;
+            player.previousSpeed = player.normalSpeed;
         } else
         {
-            player._currentSpeed = player.normalSpeed;
+            player.currentSpeed = player.normalSpeed;
         }
     }
 }

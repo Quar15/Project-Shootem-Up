@@ -10,16 +10,18 @@ public class AmmoUp : PowerUp
     {
         int newBullet = 0;
 
-        Gun[] guns = player._gunArray.arrayGuns;
-
-        while (bullets[newBullet].GetHashCode().Equals(guns[0].bullet.GetHashCode()))
+        while (bullets[newBullet].name == player.gunArray.arrayBullet.name)
         {
             newBullet =  Random.Range(0, bullets.Length);
         }
 
-        foreach(Gun gun in guns)
+        foreach(Gun gun in player.gunArray.guns)
         {
             gun.bullet = bullets[newBullet];
+        }
+        foreach(Follower option in player.followers)
+        {
+            option.followerArray.ChangeArrayBullet(bullets[newBullet]);
         }
     }
 }

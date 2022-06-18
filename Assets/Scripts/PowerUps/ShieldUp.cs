@@ -8,6 +8,6 @@ public class ShieldUp : PowerUp
 
     public override void ApplyPowerUp(Player player)
     {
-        player._hpSystem.shield = shieldUpAmount;
+        player.hpSystem.shield = shieldUpAmount;
     }
 }

@@ -94,14 +94,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1957101844026076996}
   - component: {fileID: 1957101844026076995}
-  - component: {fileID: 1957101844026076994}
   - component: {fileID: 421267277}
   - component: {fileID: 1784197910008559562}
   - component: {fileID: 2592099157535046986}
   - component: {fileID: 6625402710061671862}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,18 +138,6 @@ MonoBehaviour:
   health: 3
   shield: 0
   invisTime: 0
---- !u!114 &1957101844026076994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957101844026076993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b260cdbb6fda83f4299be3a402487378, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &421267277
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -194,11 +181,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropChancePercent: 100
   dropList:
-  - {fileID: 6374250999011355776, guid: 2a64aa2d7ab557f4997dcb3390bda7c0, type: 3}
-  - {fileID: 6865337502885667658, guid: da7fdbd661f976040a751fb6f6c4364c, type: 3}
   - {fileID: 8691292899620212996, guid: 82c7f7b6861dc2643bdbdb2c9902c62a, type: 3}
-  - {fileID: 9191451441867393134, guid: 6cef5502a9baff645a10c84a76d931ab, type: 3}
+  - {fileID: 919881773377817585, guid: 7d0586066a55c8740b03893ddf191d5d, type: 3}
   - {fileID: 1660803536649651019, guid: fc6fe2a4e181f2a4fad8b4825958240d, type: 3}
+  - {fileID: 6865337502885667658, guid: da7fdbd661f976040a751fb6f6c4364c, type: 3}
+  - {fileID: 9191451441867393134, guid: 6cef5502a9baff645a10c84a76d931ab, type: 3}
+  - {fileID: 6374250999011355776, guid: 2a64aa2d7ab557f4997dcb3390bda7c0, type: 3}
 --- !u!114 &6625402710061671862
 MonoBehaviour:
   m_ObjectHideFlags: 0

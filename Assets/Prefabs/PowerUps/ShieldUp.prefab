@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49bfb735fc800546a27e2c97349a717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3
   shieldUpAmount: 3
 --- !u!114 &9165985090249095316
 MonoBehaviour:

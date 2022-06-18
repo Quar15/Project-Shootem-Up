@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class GunUp : PowerUp
 {
-    public int currentIndex = -1;
     public GameObject[] gunArrayChoices;
 
     public override void ApplyPowerUp(Player player)
     {
-        GunArray gunArray = player._gunArray;
+        GunArray gunArray = player.gunArray;
 
         int newArrayIndex = Random.Range(0, gunArrayChoices.Length);
-        while (newArrayIndex == currentIndex)
+        while (gunArrayChoices[newArrayIndex].name == gunArray.name)
         {
             newArrayIndex = Random.Range(0, gunArrayChoices.Length);
         }
 
         gunArray.ChangeArrayTo(gunArrayChoices[newArrayIndex]);
-        currentIndex = newArrayIndex;
+        foreach(Follower option in player.followers)
+        {
+            option.followerArray.ChangeArrayTo(gunArrayChoices[newArrayIndex]);
+        }
     }
 }

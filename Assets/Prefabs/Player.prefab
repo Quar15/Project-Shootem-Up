@@ -545,13 +545,12 @@ GameObject:
   - component: {fileID: 8186143876662254945}
   - component: {fileID: 8186143876662254944}
   - component: {fileID: 8186143876662254957}
-  - component: {fileID: 8186143876662254946}
   - component: {fileID: 7437845761018793506}
   - component: {fileID: 1682301019843084697}
   - component: {fileID: 139449003034845479}
+  - component: {fileID: 4684185496086810430}
   - component: {fileID: 7224311876325009636}
   - component: {fileID: 72030717669903470}
-  - component: {fileID: 4684185496086810430}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -606,18 +605,6 @@ MonoBehaviour:
   health: 3
   shield: 0
   invisTime: 2.5
---- !u!114 &8186143876662254946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8186143876662254950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b260cdbb6fda83f4299be3a402487378, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7437845761018793506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +666,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4684185496086810430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8186143876662254950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334cd9e4e68aab2489f2edcf83884b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &7224311876325009636
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -715,15 +714,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4684185496086810430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8186143876662254950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 334cd9e4e68aab2489f2edcf83884b36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

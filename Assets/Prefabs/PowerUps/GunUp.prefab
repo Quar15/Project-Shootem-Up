@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe7bcd672a915048bff2a9188add51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  moveSpeed: 3
   gunArrayChoices:
   - {fileID: 1627775712850008171, guid: f98af83888d6dad43b2fb22477e47b76, type: 3}
   - {fileID: 8828054438146210661, guid: 1cc230e7ec82a3e4d8f929579731d9a7, type: 3}

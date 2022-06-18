@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class PowerUp : MonoBehaviour
 {
     [Header("Common")]
-    public float moveSpeed = 5;
+    public float moveSpeed = 3;
 
     EdgeLimiter _limiter;
 

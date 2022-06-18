@@ -5,16 +5,19 @@ using UnityEngine;
 public class GunArray : MonoBehaviour
 {
     public GameObject defaultGunArray;
-    public Gun[] arrayGuns { get; set; }
-
-    public GameObject _currentGunArray { get; private set; }
+    public Gun[] guns { get; set; }
+    public GameObject currentGunArray { get; private set; }
+    public Bullet arrayBullet
+    {
+        get { return guns[0].bullet; }
+    }
 
     private bool _switched = false;
-    // Start is called before the first frame update
+
     void Start()
     {
-        _currentGunArray = Instantiate(defaultGunArray, transform);
-        arrayGuns = GetComponentsInChildren<Gun>();
+        currentGunArray = Instantiate(defaultGunArray, transform);
+        guns = GetComponentsInChildren<Gun>();
     }
 
     private void FixedUpdate()
@@ -22,16 +25,38 @@ public class GunArray : MonoBehaviour
         _switched = false;
     }
 
+    public void ChangeArrayBullet(Bullet newBullet)
+    {
+        foreach (Gun gun in guns)
+        {
+            gun.bullet = newBullet;
+        }
+    }
+
     public void ChangeArrayTo(GameObject newArray)
     {
-        Bullet currentBulletType = arrayGuns[0].bullet;
-        Destroy(_currentGunArray);
+        Bullet currentBulletType = guns[0].bullet;
+        Destroy(currentGunArray);
 
-        _currentGunArray = Instantiate(newArray, transform);
-        arrayGuns = _currentGunArray.GetComponentsInChildren<Gun>();
-        foreach (Gun g in arrayGuns)
+        currentGunArray = Instantiate(newArray, transform);
+        guns = currentGunArray.GetComponentsInChildren<Gun>();
+        foreach (Gun g in guns)
         {
             g.bullet = currentBulletType;
+        }
+
+        _switched = true;
+    }
+
+    public void ChangeArrayTo(GameObject newArray, Bullet arrayBullet)
+    {
+        Destroy(currentGunArray);
+
+        currentGunArray = Instantiate(newArray, transform);
+        guns = currentGunArray.GetComponentsInChildren<Gun>();
+        foreach (Gun g in guns)
+        {
+            g.bullet = arrayBullet;
         }
 
         _switched = true;
@@ -41,7 +66,7 @@ public class GunArray : MonoBehaviour
     {
         if (!_switched)
         {
-            foreach (Gun gun in arrayGuns)
+            foreach (Gun gun in guns)
             {
                 gun.Shoot();
             }
