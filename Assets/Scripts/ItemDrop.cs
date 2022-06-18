@@ -8,6 +8,8 @@ public class ItemDrop : MonoBehaviour
 
     public PowerUp[] dropList;
 
+    static PowerUp previousDrop = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +27,13 @@ public class ItemDrop : MonoBehaviour
         if (dropChancePercent > Random.Range(0, 100))
         {
             int toSpawn = Random.Range(0, dropList.Length);
+            while (previousDrop != null && dropList[toSpawn].GetType().Equals(previousDrop.GetType()))
+            {
+                toSpawn = Random.Range(0, dropList.Length);
+            }
 
             Instantiate(dropList[toSpawn].gameObject, transform.position, Quaternion.identity, PlayAreaManager.Instance.playArea);
+            previousDrop = dropList[toSpawn];
         }
     }
 }

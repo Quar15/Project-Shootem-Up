@@ -44,7 +44,13 @@ public class Gun : MonoBehaviour
     {
         if (_cooldown <= 0 && initialDelay <= 0)
         {
-            GameObject go = Instantiate(bullet.gameObject, new Vector3(transform.position.x, transform.parent.position.y, transform.position.z), transform.rotation, PlayAreaManager.Instance.playArea);
+            GameObject go = Instantiate(
+                bullet.gameObject,
+                new Vector3(transform.position.x, transform.parent.position.y, transform.position.z),
+                new Quaternion(0,transform.rotation.y,0,transform.rotation.w),
+                //transform.rotation,
+                PlayAreaManager.Instance.playArea
+            );
 
             Bullet goBullet = go.GetComponent<Bullet>();
             goBullet.direction = _targetDirection;

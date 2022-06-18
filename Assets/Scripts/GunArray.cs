@@ -16,7 +16,11 @@ public class GunArray : MonoBehaviour
 
     void Start()
     {
-        currentGunArray = Instantiate(defaultGunArray, transform);
+        if (currentGunArray == null)
+        {
+            currentGunArray = Instantiate(defaultGunArray, transform);
+        }
+
         guns = GetComponentsInChildren<Gun>();
     }
 
@@ -36,16 +40,7 @@ public class GunArray : MonoBehaviour
     public void ChangeArrayTo(GameObject newArray)
     {
         Bullet currentBulletType = guns[0].bullet;
-        Destroy(currentGunArray);
-
-        currentGunArray = Instantiate(newArray, transform);
-        guns = currentGunArray.GetComponentsInChildren<Gun>();
-        foreach (Gun g in guns)
-        {
-            g.bullet = currentBulletType;
-        }
-
-        _switched = true;
+        ChangeArrayTo(newArray, currentBulletType);
     }
 
     public void ChangeArrayTo(GameObject newArray, Bullet arrayBullet)

@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
         {
             GameObject newPlayer = Instantiate(_player2, transform.localPosition, Quaternion.identity, transform.parent);
 
-            newPlayer.GetComponent<Player>().hpSystem.SetFlashing(4);
+            newPlayer.GetComponent<HPSystem>().SetFlashing(4);
 
             _player2spawned = true;
         }

@@ -127,6 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee85b31b3aec9947a17394b21c3622c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  moveSpeed: 3
   followerType: {fileID: 1340106821341655118, guid: 9755baa8ca7056841b1bbb2af9cf3fff, type: 3}
   maxFollowers: 4
