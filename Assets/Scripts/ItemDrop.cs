@@ -10,21 +10,11 @@ public class ItemDrop : MonoBehaviour
 
     static PowerUp previousDrop = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    bool _alreadyUsed = false;
 
     public void RollItemDrop()
     {
-        if (dropChancePercent > Random.Range(0, 100))
+        if (dropChancePercent > Random.Range(0, 100) && !_alreadyUsed)
         {
             int toSpawn = Random.Range(0, dropList.Length);
             while (previousDrop != null && dropList[toSpawn].GetType().Equals(previousDrop.GetType()))
@@ -34,6 +24,7 @@ public class ItemDrop : MonoBehaviour
 
             Instantiate(dropList[toSpawn].gameObject, transform.position, Quaternion.identity, PlayAreaManager.Instance.playArea);
             previousDrop = dropList[toSpawn];
+            _alreadyUsed = true;
         }
     }
 }

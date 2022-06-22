@@ -43,7 +43,6 @@ public class HPSystem : MonoBehaviour
     {
         return shield > 0;
     }
-
     public bool Damage(int damageAmount = 1)
     {
         if (_flashingTimeout <= 0 && !_isDodging)

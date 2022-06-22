@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         followers = new List<Follower>();
 
         _limiter = GetComponent<EdgeLimiter>();
-        _shipAnimator = GetComponent<Animator>();
+        _shipAnimator = GetComponentInChildren<Animator>();
         _shipSprite = GetComponentInChildren<SpriteRenderer>();
     }
 

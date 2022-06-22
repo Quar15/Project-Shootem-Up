@@ -9,17 +9,17 @@ public class AmmoUp : PowerUp
     public override void ApplyPowerUp(Player player)
     {
         int newBullet = 0;
-
+        
         while (bullets[newBullet].name == player.gunArray.arrayBullet.name)
         {
-            newBullet =  Random.Range(0, bullets.Length);
+            newBullet = Random.Range(0, bullets.Length);
         }
 
-        foreach(Gun gun in player.gunArray.guns)
+        foreach (Gun gun in player.gunArray.guns)
         {
             gun.bullet = bullets[newBullet];
         }
-        foreach(Follower option in player.followers)
+        foreach (Follower option in player.followers)
         {
             option.followerArray.ChangeArrayBullet(bullets[newBullet]);
         }
