@@ -72,6 +72,7 @@ public class TilesetLine : MonoBehaviour
         return _spawnedTiles[SpawnTile(tileToReturn.GetTransform())];
     }
 
+    public Vector3 GetTilesetPosition() { return transform.position; }
     public void SetTilesetPosition(Vector3 newPosition)
     {
         transform.position = newPosition;
@@ -86,6 +87,8 @@ public class TilesetLine : MonoBehaviour
         // Set positionSet
         Tile tempTile = tempTileTransform.GetComponent<Tile>();
         tempTile.positionSet = true;
+
+        tempTile.SetActive(true);
     }
 
     private int SpawnTile(Transform tilePrefab)
@@ -94,6 +97,7 @@ public class TilesetLine : MonoBehaviour
         Transform tempTileTransform = Instantiate(tilePrefab, new Vector3(0, -10f, -50f), transform.rotation) as Transform;
         //Add new tile to spawnedTiles list
         Tile tempTile = tempTileTransform.GetComponent<Tile>();
+        tempTile.SetActive(false);
         _spawnedTiles.Add(tempTile);
         return (_spawnedTiles.Count - 1);
     }
@@ -123,8 +127,8 @@ public class TilesetLine : MonoBehaviour
             {
                 t.positionSet = false;
                 t.GetTransform().localPosition = new Vector3(0, -10f, -50f);
+                t.SetActive(false);
             }
-                
             
             endlessScrollingManager.UpdateTilesetLine(this);
         }

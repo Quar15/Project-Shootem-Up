@@ -39,6 +39,17 @@ public class EndlessScrollingManager : MonoBehaviour
         _playArea.Translate(Vector3.forward * _playAreaSpeed * Time.deltaTime);
     }
 
+    private void BackPlayArea()
+    {
+        for (int i = 0; i < _tilesetLines.Length; i++)
+        {
+            _tilesetLines[i].SetTilesetPosition(_tilesetLines[i].GetTilesetPosition() + new Vector3(0f, 0f, -1000f));
+        }
+
+        currLineTransform.position += new Vector3(0f, 0f, -1000f);
+        _playArea.position += new Vector3(0f, 0f, -1000f);
+    }
+
     public void UpdateTilesetLine(int tilesetIndex)
     {
         TilesetLine currTilesetLine = _tilesetLines[tilesetIndex];
@@ -47,6 +58,9 @@ public class EndlessScrollingManager : MonoBehaviour
         // Update line position
         currTilesetLine.SetTilesetPosition(currLineTransform.position);
         currLineTransform.position += new Vector3(0f, 0f, 2f);
+
+        if(currLineTransform.position.z >= 1000f)
+            BackPlayArea();
     }
 
     public void UpdateTilesetLine(TilesetLine tilesetLine)
@@ -56,5 +70,8 @@ public class EndlessScrollingManager : MonoBehaviour
         // Update line position
         tilesetLine.SetTilesetPosition(currLineTransform.position);
         currLineTransform.position += new Vector3(0f, 0f, 2f);
+
+        if(currLineTransform.position.z >= 1000f)
+            BackPlayArea();
     }
 }

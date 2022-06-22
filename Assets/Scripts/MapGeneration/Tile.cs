@@ -82,4 +82,9 @@ public class Tile : MonoBehaviour
 
         return true;
     }
+
+    public void SetActive(bool a)
+    {
+        gameObject.SetActive(a);
+    }
 }
