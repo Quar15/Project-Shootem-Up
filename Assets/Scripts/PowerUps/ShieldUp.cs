@@ -9,5 +9,6 @@ public class ShieldUp : PowerUp
     public override void ApplyPowerUp(Player player)
     {
         player.hpSystem.shield = shieldUpAmount;
+        player.hpSystem.shieldObject.SetActive(true);
     }
 }

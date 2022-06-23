@@ -10,6 +10,8 @@ public class HPSystem : MonoBehaviour
     public int shield = 0;
     public float invisTime = 0;
 
+    public GameObject shieldObject = null;
+
     float _flashingTimeout = 0;
     bool _isDodging = false;
 
@@ -50,6 +52,10 @@ public class HPSystem : MonoBehaviour
             if (shield > 0)
             {
                 shield = Mathf.Max(shield - damageAmount, 0);
+                if (shield < 1 && shieldObject != null)
+                {
+                    shieldObject.SetActive(false);
+                }
                 return false;
             }
 
