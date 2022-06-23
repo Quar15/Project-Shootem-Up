@@ -37751,7 +37751,11 @@ PrefabInstance:
     - target: {fileID: 139449003034845479, guid: 37bc1a93722780547a48c61a8faace42, type: 3}
       propertyPath: m_Actions
       value: 
-      objectReference: {fileID: -944628639613478452, guid: e5da90d7351b9574a99cb4b32d56138b, type: 3}
+      objectReference: {fileID: -944628639613478452, guid: e726d800161630642b1553247f51714a, type: 3}
+    - target: {fileID: 139449003034845479, guid: 37bc1a93722780547a48c61a8faace42, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: 59064407-4f80-4ad0-8226-3f71c13ec9c0
+      objectReference: {fileID: 0}
     - target: {fileID: 1682301019843084697, guid: 37bc1a93722780547a48c61a8faace42, type: 3}
       propertyPath: _player2
       value: 
