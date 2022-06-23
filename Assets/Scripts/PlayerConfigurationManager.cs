@@ -24,7 +24,8 @@ public class PlayerConfigurationManager : MonoBehaviour
     private List<PlayerConfiguration> _playerConfigs;
     private PlayerJoinUIManager _playerJoinUIManager;
 
-    // [SerializeField] private int maxPlayers = 2;
+    [SerializeField] private GameObject[] playerPrefabs;
+    [SerializeField] private Vector3[] spawnPositions;
 
     private void Awake()
     {
@@ -38,13 +39,25 @@ public class PlayerConfigurationManager : MonoBehaviour
         _playerConfigs[playerIndex].playerMaterial = mat;
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Spawning players");
+        for(int i=0; i < _playerConfigs.Count; i++)
+        {
+            var player = Instantiate(playerPrefabs[i], spawnPositions[i], Quaternion.identity, PlayAreaManager.Instance.playArea.transform);
+            _playerConfigs[i].input.SwitchCurrentActionMap("Gameplay");
+            player.GetComponent<Player>().InitInput(_playerConfigs[i].input);
+        }
+    }
+
     public void ReadyPlayer(int playerIndex)
     {
         _playerConfigs[playerIndex].isReady = true;
         _playerJoinUIManager.HandlePlayerReady(playerIndex);
         if(_playerConfigs.All(p => p.isReady == true))
         {
-            SceneManager.LoadScene("GameScene"); // @TODO: Change scene name
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.LoadScene("GameplayScene"); // @TODO: Change scene name
         }
     }
 

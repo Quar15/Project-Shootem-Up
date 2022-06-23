@@ -22,10 +22,6 @@ public class Player : MonoBehaviour
     Animator _shipAnimator;
     SpriteRenderer _shipSprite;
 
-    [Header("Debug")]
-    [SerializeField] bool _player2spawned = false;
-    [SerializeField] GameObject _player2;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -71,17 +67,26 @@ public class Player : MonoBehaviour
         transform.localPosition = _limiter.Delimit(pos);
     }
 
-
-    void OnMove(InputValue value)
+    public void InitInput(PlayerInput playerInput)
     {
-        Vector2 change = value.Get<Vector2>();
+        playerInput.actions["Move"].performed += OnMove;
+        playerInput.actions["Move"].canceled += OnMove;
+        playerInput.actions["PreciseMove"].performed += OnPreciseMove;
+        playerInput.actions["Shoot"].performed += OnShoot;
+        playerInput.actions["Dodge"].performed += OnDodge;
+    }
+
+
+    void OnMove(InputAction.CallbackContext context)
+    {
+        Vector2 change = context.ReadValue<Vector2>();
         _moveInput.x = change.x;
         _moveInput.z = change.y;
     }
 
-    void OnPreciseMove(InputValue value)
+    void OnPreciseMove(InputAction.CallbackContext context)
     {
-        if (value.Get<float>() > 0.5f)
+        if (context.ReadValue<float>() > 0.5f)
         {
             previousSpeed = currentSpeed;
             currentSpeed = preciseSpeed;
@@ -92,28 +97,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnShoot(InputValue value)
+    void OnShoot(InputAction.CallbackContext context)
     {
-        _shouldFire = value.Get<float>() > 0.5f;
+        _shouldFire = context.ReadValue<float>() > 0.5f;
     }
 
-    void OnDodge(InputValue value)
+    void OnDodge(InputAction.CallbackContext context)
     {
         if (!hpSystem.IsDodging())
         {
             hpSystem.StartDodge();
-        }
-    }
-
-    // TODO: Implement prod version
-    void OnSpawnPlayer()
-    {if (!_player2spawned)
-        {
-            GameObject newPlayer = Instantiate(_player2, transform.localPosition, Quaternion.identity, transform.parent);
-
-            newPlayer.GetComponent<HPSystem>().SetFlashing(4);
-
-            _player2spawned = true;
         }
     }
 }

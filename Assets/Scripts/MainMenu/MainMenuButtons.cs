@@ -9,7 +9,6 @@ public class MainMenuButtons : MonoBehaviour
 {
     [SerializeField] private GameObject _optionsPanel;
 
-
     public void LoadJoinScene()
     {
         SceneManager.LoadScene("JoinScene");
