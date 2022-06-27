@@ -18,7 +18,7 @@ public class EnemiesManager : MonoBehaviour
     {
         foreach (Enemy e in avEnemies)
         {
-            if(!e.IsAlive())
+            if(!e.IsAlive() && e.GetEnemyType() == enemyType)
             {
                 avEnemies.Remove(e);
                 return e;

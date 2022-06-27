@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
+    [SerializeField] private bool _endlessWaves;
     private List<Wave> waves;
     [SerializeField] private EnemiesManager _enemiesManager;
 
     private int waveIndex;
     private float _timer;
+
+    private static System.Random rng = new System.Random();
 
     private void Awake() 
     {
@@ -22,6 +26,9 @@ public class WaveSpawner : MonoBehaviour
             if(w != null)
                 waves.Add(w);
         }
+
+        if(_endlessWaves)
+            RandomizeWaves();
     }
 
     private void Update()
@@ -30,6 +37,18 @@ public class WaveSpawner : MonoBehaviour
             SpawnWave();
 
         _timer -= Time.deltaTime;
+    }
+
+    private void RandomizeWaves()
+    {
+        int n = waves.Count;
+        while (n > 1) {  
+            n--;  
+            int k = rng.Next(n + 1);  
+            Wave w = waves[k];  
+            waves[k] = waves[n];  
+            waves[n] = w;
+        }  
     }
 
     public void SpawnWave()
@@ -45,6 +64,15 @@ public class WaveSpawner : MonoBehaviour
 
         waveIndex++;
         if(waveIndex < waves.Count)
+        {
             _timer = waves[waveIndex].delay;
+        }
+        else
+        {
+            waveIndex = 0;
+            RandomizeWaves();
+            _timer = waves[waveIndex].delay;
+        }
+            
     } 
 }
