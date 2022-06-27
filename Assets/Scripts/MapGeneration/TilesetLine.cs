@@ -12,7 +12,6 @@ public class TilesetLine : MonoBehaviour
     public void Init(TilePrefabsManager tilePrefabsManager)
     {
         _tilesPrefabs = tilePrefabsManager.tilePrefabs.ToArray();
-        Debug.Log(_tilesPrefabs.Length);
         _spawnedTiles = new List<Tile>();
         foreach (Transform tilePrefab in _tilesPrefabs)
         {

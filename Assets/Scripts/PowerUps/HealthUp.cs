@@ -8,6 +8,6 @@ public class HealthUp : PowerUp
 
     public override void ApplyPowerUp(Player player)
     {
-        player.hpSystem.health += upAmount;
+        player.hpSystem.AddHP(upAmount);
     }
 }

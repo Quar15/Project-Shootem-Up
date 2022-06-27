@@ -6,7 +6,8 @@ public class HPSystem : MonoBehaviour
 {
     public string damageTag;
 
-    public int health = 1;
+    public int maxHealth = 1;
+    private int health = 1;
     public int shield = 0;
     public float invisTime = 0;
 
@@ -21,6 +22,12 @@ public class HPSystem : MonoBehaviour
     void Start()
     {
         _itemDrop = GetComponent<ItemDrop>();
+        ResetHP();
+    }
+
+    public void ResetHP()
+    {
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -30,6 +37,11 @@ public class HPSystem : MonoBehaviour
         {
             _flashingTimeout -= Time.deltaTime;
         }
+    }
+
+    public bool IsAlive()
+    {
+        return health > 0;
     }
 
     public bool IsFlashing()
@@ -45,6 +57,13 @@ public class HPSystem : MonoBehaviour
     {
         return shield > 0;
     }
+
+    public void AddHP(int HPToAdd = 1)
+    {
+        if(IsAlive())
+            health += HPToAdd;
+    }
+
     public bool Damage(int damageAmount = 1)
     {
         if (_flashingTimeout <= 0 && !_isDodging)
@@ -68,7 +87,10 @@ public class HPSystem : MonoBehaviour
                     _itemDrop.RollItemDrop();
                 }
 
-                Destroy(gameObject);
+                gameObject.SetActive(false);
+                if(gameObject.tag == "Enemy")
+                    GetComponent<Enemy>().Death();
+                
                 return true;
             }
 
