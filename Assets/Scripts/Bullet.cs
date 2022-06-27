@@ -19,11 +19,6 @@ public class Bullet : MonoBehaviour
         _limiter = GetComponent<EdgeLimiter>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void FixedUpdate()
     {
         Vector3 pos = transform.localPosition;
