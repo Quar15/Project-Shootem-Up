@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerConfiguration
 {
@@ -41,12 +42,20 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Spawning players");
-        for(int i=0; i < _playerConfigs.Count; i++)
+        if(scene.name == "GameplayScene")
         {
-            var player = Instantiate(playerPrefabs[i], spawnPositions[i], Quaternion.identity, PlayAreaManager.Instance.playArea.transform);
-            _playerConfigs[i].input.SwitchCurrentActionMap("Gameplay");
-            player.GetComponent<Player>().InitInput(_playerConfigs[i].input);
+            Debug.Log("@INFO: Spawning players");
+            for(int i=0; i < _playerConfigs.Count; i++)
+            {
+                var player = Instantiate(playerPrefabs[i], spawnPositions[i], Quaternion.identity, PlayAreaManager.Instance.playArea.transform);
+                _playerConfigs[i].input.SwitchCurrentActionMap("Gameplay");
+                
+                Player tempPlayer = player.GetComponent<Player>();
+                tempPlayer.InitInput(_playerConfigs[i].input);
+                tempPlayer.pauseMenu = GameObject.FindWithTag("Canvas").GetComponent<PauseMenu>();
+                tempPlayer.pauseMenu.playersLives[i].SetActive(true);
+                player.GetComponent<HPSystem>().hpText = tempPlayer.pauseMenu.playersLives[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            }
         }
     }
 
@@ -63,7 +72,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput pi)
     {
-        Debug.Log("Player " + pi.playerIndex + " clicked something");
+        Debug.Log("Player " + (pi.playerIndex + 1) + " clicked something");
         
         if(!_playerConfigs.Any(p => p.playerIndex == pi.playerIndex))
         {

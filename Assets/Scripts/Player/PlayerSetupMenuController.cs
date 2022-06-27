@@ -23,6 +23,6 @@ public class PlayerSetupMenuController : MonoBehaviour
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
-        Invoke("InitPlayerInput", 1f);
+        Invoke("InitPlayerInput", .1f);
     }
 }

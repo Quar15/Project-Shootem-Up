@@ -8,6 +8,7 @@ TagManager:
   - PlayZoneEnd
   - PlayerBullet
   - Enemy
+  - Canvas
   layers:
   - Default
   - TransparentFX

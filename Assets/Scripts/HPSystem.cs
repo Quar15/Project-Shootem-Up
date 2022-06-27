@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HPSystem : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class HPSystem : MonoBehaviour
     public float invisTime = 0;
 
     public GameObject shieldObject = null;
+    public TextMeshProUGUI hpText;
 
     float _flashingTimeout = 0;
     bool _isDodging = false;
@@ -22,7 +24,6 @@ public class HPSystem : MonoBehaviour
     void Start()
     {
         _itemDrop = GetComponent<ItemDrop>();
-        ResetHP();
     }
 
     public void ResetHP()
@@ -78,7 +79,12 @@ public class HPSystem : MonoBehaviour
                 return false;
             }
 
-            health -= damageAmount;
+            health = Mathf.Clamp(health - damageAmount, 0, 9999);
+
+            if(hpText != null)
+            {
+                hpText.text = health.ToString();
+            }
 
             if (health <= 0)
             {

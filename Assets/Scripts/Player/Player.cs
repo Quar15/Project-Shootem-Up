@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public float previousSpeed { get; set; }
 
     public HPSystem hpSystem { get; set; }
+    [SerializeField] private GameObject _shipModel;
     public GunArray gunArray { get; set; }
     public List<Follower> followers { get; set; }
 
@@ -20,19 +21,22 @@ public class Player : MonoBehaviour
     Vector3 _moveInput;
     EdgeLimiter _limiter;
     Animator _shipAnimator;
-    SpriteRenderer _shipSprite;
+
+    public PauseMenu pauseMenu;
 
     // Start is called before the first frame update
     void Start()
     {
         currentSpeed = normalSpeed;
         hpSystem = GetComponent<HPSystem>();
+        hpSystem.ResetHP();
         gunArray = GetComponentInChildren<GunArray>();
         followers = new List<Follower>();
 
         _limiter = GetComponent<EdgeLimiter>();
         _shipAnimator = GetComponentInChildren<Animator>();
-        _shipSprite = GetComponentInChildren<SpriteRenderer>();
+
+        hpSystem.Damage(0);
     }
 
     // Update is called once per frame
@@ -48,11 +52,11 @@ public class Player : MonoBehaviour
         }
         if (hpSystem.IsFlashing())
         {
-            _shipSprite.enabled = !_shipSprite.enabled;
+            _shipModel.SetActive(!_shipModel.activeSelf);
         }
         else
         {
-            _shipSprite.enabled = true;
+            _shipModel.SetActive(true);
         }
 
         _shipAnimator.SetBool("dodge", hpSystem.IsDodging());
@@ -74,8 +78,8 @@ public class Player : MonoBehaviour
         playerInput.actions["PreciseMove"].performed += OnPreciseMove;
         playerInput.actions["Shoot"].performed += OnShoot;
         playerInput.actions["Dodge"].performed += OnDodge;
+        playerInput.actions["Pause"].performed += OnPaused;
     }
-
 
     void OnMove(InputAction.CallbackContext context)
     {
@@ -108,5 +112,10 @@ public class Player : MonoBehaviour
         {
             hpSystem.StartDodge();
         }
+    }
+
+    void OnPaused(InputAction.CallbackContext context)
+    {
+        pauseMenu.PauseSwitch();
     }
 }
