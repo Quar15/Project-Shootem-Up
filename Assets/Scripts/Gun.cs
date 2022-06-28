@@ -6,6 +6,8 @@ public class Gun : MonoBehaviour
 {
     public Bullet bullet;
 
+    [SerializeField] private AudioSource _gunAudioSource;
+
     public bool autoFire = false;
     public float initialDelay = 0;
     public float fireDelay = 0.3f;
@@ -49,6 +51,9 @@ public class Gun : MonoBehaviour
             Bullet goBullet = go.GetComponent<Bullet>();
             goBullet.direction = _targetDirection;
             goBullet.speed *= bulletSpeedMultiplier;
+
+            _gunAudioSource.pitch = Random.Range(0.8f, 1.2f);
+            _gunAudioSource.Play();
 
             _cooldown = fireDelay;
         }
