@@ -59,10 +59,15 @@ public class HPSystem : MonoBehaviour
         return shield > 0;
     }
 
+    public int CurrentHP()
+    {
+        return health;
+    }
+
     public void AddHP(int HPToAdd = 1)
     {
-        if(IsAlive())
-            health += HPToAdd;
+        if (IsAlive())
+            health = Mathf.Min(health + HPToAdd, maxHealth);
 
         if(hpText != null)
             hpText.text = health.ToString();
@@ -141,7 +146,9 @@ public class HPSystem : MonoBehaviour
                 // Bullet hit when object is flashing / dodging - should pass through
                 if (_isDodging || (_flashingTimeout > 0 && _flashingTimeout < invisTime)) return;
 
-                Destroy(other.gameObject);
+
+
+                bullet.DisableBullet();
             }
         }
     }

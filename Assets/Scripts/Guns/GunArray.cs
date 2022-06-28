@@ -7,15 +7,19 @@ public class GunArray : MonoBehaviour
     public GameObject defaultGunArray;
     public Gun[] guns { get; set; }
     public GameObject currentGunArray { get; private set; }
-    public Bullet arrayBullet
+    public BulletType bulletType
     {
-        get { return guns[0].bullet; }
+        get { return guns[0].bulletType; }
     }
+    private BulletsManager _bm;
+    public BulletsManager GetBulletsManager() { return _bm; }
 
     private bool _switched = false;
 
     void Start()
     {
+        _bm = FindObjectOfType<BulletsManager>();
+        
         if (currentGunArray == null)
         {
             currentGunArray = Instantiate(defaultGunArray, transform);
@@ -29,21 +33,20 @@ public class GunArray : MonoBehaviour
         _switched = false;
     }
 
-    public void ChangeArrayBullet(Bullet newBullet)
+    public void ChangeBulletType(BulletType bulletType)
     {
         foreach (Gun gun in guns)
         {
-            gun.bullet = newBullet;
+            gun.bulletType = bulletType;
         }
     }
 
     public void ChangeArrayTo(GameObject newArray)
     {
-        Bullet currentBulletType = guns[0].bullet;
-        ChangeArrayTo(newArray, currentBulletType);
+        ChangeArrayTo(newArray, bulletType);
     }
 
-    public void ChangeArrayTo(GameObject newArray, Bullet arrayBullet)
+    public void ChangeArrayTo(GameObject newArray, BulletType bulletType)
     {
         Destroy(currentGunArray);
 
@@ -51,7 +54,7 @@ public class GunArray : MonoBehaviour
         guns = currentGunArray.GetComponentsInChildren<Gun>();
         foreach (Gun g in guns)
         {
-            g.bullet = arrayBullet;
+            g.bulletType = bulletType;
         }
 
         _switched = true;

@@ -34,13 +34,13 @@ public class Follower : MonoBehaviour
 
     public static Follower SpawnFollower(Follower follower, GameObject targetObject, Transform spawnTransform, GunArray initialArray)
     {
-        GameObject go = Instantiate(follower.gameObject, spawnTransform.localPosition, Quaternion.identity, PlayAreaManager.Instance.playArea);
+        GameObject go = Instantiate(follower.gameObject, spawnTransform.position, Quaternion.identity, PlayAreaManager.Instance.playArea);
 
         Follower newFollower = go.GetComponent<Follower>();
         newFollower.target = targetObject;
 
         GunArray newFollowerrArray = go.GetComponentInChildren<GunArray>();
-        newFollowerrArray.ChangeArrayTo(initialArray.gameObject, initialArray.arrayBullet);
+        newFollowerrArray.ChangeArrayTo(initialArray.gameObject, initialArray.bulletType);
 
         return newFollower;
     }

@@ -18,6 +18,7 @@ public class UpgradeSystem : MonoBehaviour
 
         if (powerUp != null)
         {
+            _player.playerAudioSource.PlayOneShot(powerUp.powerupSound, 0.8f);
             powerUp.ApplyPowerUp(_player);
             Destroy(other.gameObject);
         }

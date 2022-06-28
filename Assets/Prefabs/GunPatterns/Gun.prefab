@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27076829bcc3e5468eb6a329aa58709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 2371224286384927441, guid: d7b70e0edd756e348b17505a6ef77b4a, type: 3}
+  bulletType: 0
   _gunAudioSource: {fileID: 6177898526922710210}
   autoFire: 1
   initialDelay: 0
@@ -93,7 +93,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7660708630112976267, guid: 1d7b39362f5a1fb43ad5ce17f52b015d, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 604004c973ca2a64d8efd34418b7f576, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

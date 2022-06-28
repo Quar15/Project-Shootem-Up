@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class AmmoUp : PowerUp
 {
-    public Bullet[] bullets;
+    public Bullet[] bulletChoices;
 
     public override void ApplyPowerUp(Player player)
     {
         int newBullet = 0;
-        
-        while (bullets[newBullet].name == player.gunArray.arrayBullet.name)
+
+        while (bulletChoices[newBullet].GetBulletType() == player.gunArray.bulletType)
         {
-            newBullet = Random.Range(0, bullets.Length);
+            newBullet = Random.Range(0, bulletChoices.Length);
         }
 
+        BulletType newType = bulletChoices[newBullet].GetBulletType();
         foreach (Gun gun in player.gunArray.guns)
         {
-            gun.bullet = bullets[newBullet];
+            gun.bulletType = newType;
         }
         foreach (Follower option in player.followers)
         {
-            option.followerArray.ChangeArrayBullet(bullets[newBullet]);
+            option.followerArray.ChangeBulletType(newType);
         }
     }
 }

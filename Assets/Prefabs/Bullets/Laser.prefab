@@ -112,10 +112,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94b3f1144d61f54cbb959c018aba390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
+  bulletSound: {fileID: 8300000, guid: 971e56f11188416448f8b3c6bac6969e, type: 3}
+  delayMultiplier: 1.2
   speed: 35
   damage: 2
   pierce: 1
+  _type: 2
+  bulletsManager: {fileID: 0}
 --- !u!114 &-9067946643758782896
 MonoBehaviour:
   m_ObjectHideFlags: 0

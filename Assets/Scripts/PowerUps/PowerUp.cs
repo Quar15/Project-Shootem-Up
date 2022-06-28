@@ -6,6 +6,7 @@ public abstract class PowerUp : MonoBehaviour
 {
     [Header("Common")]
     public float moveSpeed = 3;
+    public AudioClip powerupSound;
 
     EdgeLimiter _limiter;
 

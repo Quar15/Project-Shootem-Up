@@ -10,11 +10,9 @@ public class ItemDrop : MonoBehaviour
 
     static PowerUp previousDrop = null;
 
-    bool _alreadyUsed = false;
-
     public void RollItemDrop()
     {
-        if (dropChancePercent > Random.Range(0, 100) && !_alreadyUsed)
+        if (dropChancePercent > Random.Range(0, 100))
         {
             int toSpawn = Random.Range(0, dropList.Length);
             while (previousDrop != null && dropList[toSpawn].GetType().Equals(previousDrop.GetType()))
@@ -24,7 +22,6 @@ public class ItemDrop : MonoBehaviour
 
             Instantiate(dropList[toSpawn].gameObject, transform.position, Quaternion.identity, PlayAreaManager.Instance.playArea);
             previousDrop = dropList[toSpawn];
-            _alreadyUsed = true;
         }
     }
 }

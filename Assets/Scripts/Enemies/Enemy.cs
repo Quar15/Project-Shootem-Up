@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     private HPSystem _hpSystem;
     private EnemyMovement _enemyMovement;
+    private Gun[] _enemyGuns;
     public EnemiesManager enemiesManager;
     public ScoreManager scoreManager;
 
@@ -23,6 +24,18 @@ public class Enemy : MonoBehaviour
     {
         _hpSystem = GetComponent<HPSystem>();
         _enemyMovement = GetComponent<EnemyMovement>();
+        _enemyGuns = GetComponentsInChildren<Gun>();
+    }
+
+    private void Update()
+    {
+        if (PlayAreaManager.Instance.screenEdgeLimiter.IsInside(transform.localPosition))
+        {
+            foreach (Gun g in _enemyGuns)
+            {
+                g.InitAutofire();
+            }
+        }
     }
 
     public void InitEnemyMovement(MovementType movementType, Transform[] routePoints, float speed)
@@ -64,6 +77,10 @@ public class Enemy : MonoBehaviour
     {
         if(_shouldAddPoints)
             scoreManager.AddScore(_pointsForKill);
+        foreach(Gun g in _enemyGuns)
+        {
+            g.autoFire = false;
+        }
         
         enemiesManager.AddToAvailableEnemies(this);
     }
