@@ -67,5 +67,13 @@ PrefabInstance:
       propertyPath: _type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7748884406949003184, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
+      propertyPath: _forceKillTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748884406949003184, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
+      propertyPath: _pointsForKill
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}

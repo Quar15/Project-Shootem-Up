@@ -97,7 +97,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _forceKillTime: 20
   _type: 0
+  _pointsForKill: 100
   enemiesManager: {fileID: 0}
+  scoreManager: {fileID: 0}
 --- !u!114 &5198504761086989597
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: -2432090755550338912, guid: be23bc8272f938d4587926c028b5a124, type: 3}
     - target: {fileID: 5198504761086989597, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
       propertyPath: maxHealth
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6075170762000889958, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
       propertyPath: enemyTag
@@ -74,6 +74,14 @@ PrefabInstance:
     - target: {fileID: 7748884406949003184, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
       propertyPath: _type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748884406949003184, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
+      propertyPath: _forceKillTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748884406949003184, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
+      propertyPath: _pointsForKill
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8211444426969675605, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
       propertyPath: dropChancePercent

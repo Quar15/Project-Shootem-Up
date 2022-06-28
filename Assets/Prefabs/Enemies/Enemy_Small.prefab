@@ -79,9 +79,13 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -2432090755550338912, guid: 1d3e76ebf770f9b478888bf304e0a362, type: 3}
+    - target: {fileID: 5198504761086989597, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
+      propertyPath: maxHealth
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7748884406949003184, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
       propertyPath: _forceKillTime
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8211444426969675605, guid: 73e1d740b8b29f14da2da6cdcddd9418, type: 3}
