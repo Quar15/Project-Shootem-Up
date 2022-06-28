@@ -63,6 +63,9 @@ public class HPSystem : MonoBehaviour
     {
         if(IsAlive())
             health += HPToAdd;
+
+        if(hpText != null)
+            hpText.text = health.ToString();
     }
 
     public bool Damage(int damageAmount = 1)
@@ -96,6 +99,8 @@ public class HPSystem : MonoBehaviour
                 gameObject.SetActive(false);
                 if(gameObject.tag == "Enemy")
                     GetComponent<Enemy>().Death();
+                else if(gameObject.tag == "Player")
+                    GetComponent<Player>().Death();
                 
                 return true;
             }

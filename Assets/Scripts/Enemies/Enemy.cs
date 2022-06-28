@@ -9,11 +9,15 @@ public class Enemy : MonoBehaviour
     [Tooltip("After x[s] deal 9999 DMG to Enemy.\n(Skips values <= 0)")]
     [SerializeField]  private float _forceKillTime = 20f;
     [SerializeField] private EnemyType _type;
+    [SerializeField] private int _pointsForKill;
     public EnemyType GetEnemyType() { return _type; }
 
     private HPSystem _hpSystem;
     private EnemyMovement _enemyMovement;
     public EnemiesManager enemiesManager;
+    public ScoreManager scoreManager;
+
+    private bool _shouldAddPoints = true;
 
     private void Awake() 
     {
@@ -29,12 +33,20 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    private void OnEnable()
+    {
+        CancelInvoke();
+        if(_forceKillTime > 0)
+        {
+            Invoke("ForceKill", _forceKillTime);
+        }
+    }
+
     public void ResetEnemy()
     {
         _enemyMovement.InitMovementSystem();
         _hpSystem.ResetHP();
-        if(_forceKillTime > 0)
-            Invoke("ForceKill", _forceKillTime);
+        _shouldAddPoints = true;            
     }
 
     public bool IsAlive()
@@ -44,11 +56,15 @@ public class Enemy : MonoBehaviour
 
     private void ForceKill()
     {
+        _shouldAddPoints = false;
         _hpSystem.Damage(9999);
     }
 
     public void Death()
     {
+        if(_shouldAddPoints)
+            scoreManager.AddScore(_pointsForKill);
+        
         enemiesManager.AddToAvailableEnemies(this);
     }
 
