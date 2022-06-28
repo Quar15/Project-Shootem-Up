@@ -28,6 +28,7 @@ public class GameOverMenu : MonoBehaviour
         }
 
         Time.timeScale = 0f;
+        Cursor.visible = true;
         _scoreManager.SaveScore();
         _gameOverPanel.SetActive(true);
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(_gameOverPanel.gameObject.transform.GetChild(0).GetChild(0).gameObject);

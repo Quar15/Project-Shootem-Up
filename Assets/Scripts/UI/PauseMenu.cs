@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject _pausePanel;
+    [SerializeField] private GameObject _optionsPanel;
     public GameObject[] playersLives;
 
     public void Continue()
@@ -28,11 +29,12 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.visible = true;
         _pausePanel.SetActive(true);
+        _optionsPanel.SetActive(false);
     }
 
     public void OpenOptions()
     {
-        Debug.Log("@TODO: Open Options");
+        _optionsPanel.SetActive(true);
     }
 
     public void ResetTextPosition(RectTransform textTransform)
