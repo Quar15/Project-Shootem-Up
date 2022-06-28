@@ -133,6 +133,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3450030786173525262, guid: c24e01dfa3576eb41bfb166001665b18, type: 3}
   m_PrefabInstance: {fileID: 3450030786178524600}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &51581657 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7783355741867357143, guid: 3001dfa244d8a5f47ae7d73c28b90190, type: 3}
+  m_PrefabInstance: {fileID: 7783355742676131249}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec665a0a32016d74c8cbeaef904c002e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &565240534
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,6 +728,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3450030786294576610, guid: c24e01dfa3576eb41bfb166001665b18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450030786828280400, guid: c24e01dfa3576eb41bfb166001665b18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3450030786980039402, guid: c24e01dfa3576eb41bfb166001665b18, type: 3}
       propertyPath: m_fontColor.b
       value: 1
@@ -970,6 +989,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3450030786294576610, guid: c24e01dfa3576eb41bfb166001665b18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450030786828280400, guid: c24e01dfa3576eb41bfb166001665b18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3450030786980039402, guid: c24e01dfa3576eb41bfb166001665b18, type: 3}
       propertyPath: m_fontColor.b
       value: 1
@@ -1023,6 +1050,22 @@ PrefabInstance:
       propertyPath: playerPanels.Array.data[1]
       value: 
       objectReference: {fileID: 1130538581}
+    - target: {fileID: 7783355741867357140, guid: 3001dfa244d8a5f47ae7d73c28b90190, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783355741867357140, guid: 3001dfa244d8a5f47ae7d73c28b90190, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783355741867357140, guid: 3001dfa244d8a5f47ae7d73c28b90190, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 51581657}
+    - target: {fileID: 7783355741867357140, guid: 3001dfa244d8a5f47ae7d73c28b90190, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7783355741867357141, guid: 3001dfa244d8a5f47ae7d73c28b90190, type: 3}
       propertyPath: m_Name
       value: PlayerConfigurationManager

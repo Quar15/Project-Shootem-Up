@@ -11,7 +11,7 @@ public class MainMenuButtons : MonoBehaviour
 
     public void LoadJoinScene()
     {
-        SceneManager.LoadScene("JoinScene");
+        SceneManager.LoadScene("JoinScene", LoadSceneMode.Single);
     }
 
     public void OpenOptionsPanel()

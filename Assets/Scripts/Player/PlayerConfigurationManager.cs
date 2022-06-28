@@ -42,9 +42,11 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Time.timeScale = 1f;
         if(scene.name == "GameplayScene")
         {
-            Debug.Log("@INFO: Spawning players");
+            GetComponent<PlayerInputManager>().DisableJoining();
+            Debug.Log("@INFO: Spawning " + _playerConfigs.Count + " players");
             for(int i=0; i < _playerConfigs.Count; i++)
             {
                 var player = Instantiate(playerPrefabs[i], spawnPositions[i], Quaternion.identity, PlayAreaManager.Instance.playArea.transform);
@@ -52,10 +54,17 @@ public class PlayerConfigurationManager : MonoBehaviour
                 
                 Player tempPlayer = player.GetComponent<Player>();
                 tempPlayer.InitInput(_playerConfigs[i].input);
-                tempPlayer.pauseMenu = GameObject.FindWithTag("Canvas").GetComponent<PauseMenu>();
+                GameObject canvasGO = GameObject.FindWithTag("Canvas");
+                tempPlayer.pauseMenu = canvasGO.GetComponent<PauseMenu>();
+                tempPlayer.gameOverMenu = canvasGO.GetComponent<GameOverMenu>();
                 tempPlayer.pauseMenu.playersLives[i].SetActive(true);
                 player.GetComponent<HPSystem>().hpText = tempPlayer.pauseMenu.playersLives[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             }
+        }
+
+        else if(scene.name == "MainMenuScene")
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -66,7 +75,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         if(_playerConfigs.All(p => p.isReady == true))
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.LoadScene("GameplayScene"); // @TODO: Change scene name
+            SceneManager.LoadScene("GameplayScene", LoadSceneMode.Single);
         }
     }
 
@@ -77,13 +86,28 @@ public class PlayerConfigurationManager : MonoBehaviour
         if(!_playerConfigs.Any(p => p.playerIndex == pi.playerIndex))
         {
             pi.transform.SetParent(transform);
-            _playerConfigs.Add(new PlayerConfiguration(pi));
+            PlayerConfiguration newPC = new PlayerConfiguration(pi);
+            newPC.input.SwitchCurrentActionMap("ReadyUp");
+            _playerConfigs.Add(newPC);
 
             _playerJoinUIManager.HandlePlayerJoin(pi.playerIndex);
 
             PlayerSetupMenuController pc = pi.transform.GetComponent<PlayerSetupMenuController>();
             pc.playerIndex = pi.playerIndex;
             pc.playerConfigurationManager = this;
+            pc.Init();
+        }
+    }
+
+    public void HandlePlayerLeft(PlayerInput pi)
+    {
+        for (int i=0; i < _playerConfigs.Count; i++)
+        {
+            if(_playerConfigs[i].input == pi)
+            {
+                _playerConfigs.RemoveAt(i);
+                break;
+            }
         }
     }
 }

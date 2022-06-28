@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+
     public float preciseSpeed = 7;
     public float normalSpeed = 14;
     public float flinchTime = 1;
@@ -22,7 +23,10 @@ public class Player : MonoBehaviour
     EdgeLimiter _limiter;
     Animator _shipAnimator;
 
+    private PlayerInput _playerInput;
+
     public PauseMenu pauseMenu;
+    public GameOverMenu gameOverMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +36,8 @@ public class Player : MonoBehaviour
         hpSystem.ResetHP();
         gunArray = GetComponentInChildren<GunArray>();
         followers = new List<Follower>();
+
+        gameOverMenu.AddPlayer(this);
 
         _limiter = GetComponent<EdgeLimiter>();
         _shipAnimator = GetComponentInChildren<Animator>();
@@ -73,6 +79,14 @@ public class Player : MonoBehaviour
 
     public void InitInput(PlayerInput playerInput)
     {
+        if(playerInput == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+            
+        
+        _playerInput = playerInput;
         playerInput.actions["Move"].performed += OnMove;
         playerInput.actions["Move"].canceled += OnMove;
         playerInput.actions["PreciseMove"].performed += OnPreciseMove;
@@ -117,5 +131,23 @@ public class Player : MonoBehaviour
     void OnPaused(InputAction.CallbackContext context)
     {
         pauseMenu.PauseSwitch();
+    }
+
+    public void Death()
+    {
+        gameOverMenu.CheckForEnd();
+    }
+
+    private void OnDestroy() 
+    {
+        if(_playerInput == null)
+            return;
+            
+        _playerInput.actions["Move"].performed -= OnMove;
+        _playerInput.actions["Move"].canceled -= OnMove;
+        _playerInput.actions["PreciseMove"].performed -= OnPreciseMove;
+        _playerInput.actions["Shoot"].performed -= OnShoot;
+        _playerInput.actions["Dodge"].performed -= OnDodge;
+        _playerInput.actions["Pause"].performed -= OnPaused;
     }
 }

@@ -52,6 +52,11 @@ public class PauseMenu : MonoBehaviour
         textTransform.localPosition = new Vector3(0f, 10f, 0f);
     }
 
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
+    }
+
     public void QuitToDesktop()
     {
         Application.Quit();

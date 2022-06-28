@@ -15,14 +15,20 @@ public class PlayerSetupMenuController : MonoBehaviour
         playerConfigurationManager.ReadyPlayer(playerIndex);
     }
 
-    private void InitPlayerInput()
+    public void InitPlayerInput()
     {
         _playerInput.actions["Ready"].performed += OnReady;
+        Debug.Log("@INFO: PlayerInput initialized");
     }
 
-    private void Awake()
+    public void Init()
     {
         _playerInput = GetComponent<PlayerInput>();
-        Invoke("InitPlayerInput", .1f);
+        Invoke("InitPlayerInput", .1f); // Instant ready prevention
+    }
+
+    private void OnDestroy() 
+    {
+        _playerInput.actions["Ready"].performed -= OnReady;
     }
 }
