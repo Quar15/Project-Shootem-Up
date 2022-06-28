@@ -27,6 +27,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     [SerializeField] private GameObject[] playerPrefabs;
     [SerializeField] private Vector3[] spawnPositions;
+    [SerializeField] private ScreenFade screenFade;
 
     private void Awake()
     {
@@ -75,7 +76,8 @@ public class PlayerConfigurationManager : MonoBehaviour
         if(_playerConfigs.All(p => p.isReady == true))
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.LoadScene("GameplayScene", LoadSceneMode.Single);
+            StartCoroutine(screenFade.LoadLevel("GameplayScene"));
+            // SceneManager.LoadScene("GameplayScene", LoadSceneMode.Single);
         }
     }
 
