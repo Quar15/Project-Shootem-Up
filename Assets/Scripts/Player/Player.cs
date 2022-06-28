@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     public HPSystem hpSystem { get; set; }
     [SerializeField] private GameObject _shipModel;
+    [SerializeField] private AudioSource _engineAudioSource;
     public GunArray gunArray { get; set; }
     public List<Follower> followers { get; set; }
 
@@ -63,6 +64,15 @@ public class Player : MonoBehaviour
         else
         {
             _shipModel.SetActive(true);
+        }
+
+        if(_moveInput != Vector3.zero)
+        {
+            _engineAudioSource.pitch = 1.1f;
+        }
+        else
+        {
+            _engineAudioSource.pitch = 1f;
         }
 
         _shipAnimator.SetBool("dodge", hpSystem.IsDodging());

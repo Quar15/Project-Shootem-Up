@@ -444,7 +444,9 @@ MonoBehaviour:
   normalSpeed: 14
   flinchTime: 1
   _shipModel: {fileID: 5521467050271930782}
+  _engineAudioSource: {fileID: 5459876006400572595}
   pauseMenu: {fileID: 0}
+  gameOverMenu: {fileID: 0}
 --- !u!114 &8186143876662254957
 MonoBehaviour:
   m_ObjectHideFlags: 0
