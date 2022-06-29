@@ -8,6 +8,7 @@ public class GameOverMenu : MonoBehaviour
     private List<Player> _players;
     [SerializeField] private GameObject _gameOverPanel;
     [SerializeField] private ScoreManager _scoreManager;
+    [SerializeField] private ScreenFade _screenFade;
 
     private void Awake()
     {
@@ -36,7 +37,7 @@ public class GameOverMenu : MonoBehaviour
 
     public void ResetGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        StartCoroutine(_screenFade.LoadLevel(SceneManager.GetActiveScene().buildIndex));
     }
 
     public void QuitToDesktop()
