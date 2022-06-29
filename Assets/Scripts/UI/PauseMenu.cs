@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         Cursor.visible = false;
+        _optionsPanel.SetActive(false);
         _pausePanel.SetActive(false);
     }
 
