@@ -18,17 +18,25 @@ public class BackgroundMusic : MonoBehaviour
     private void Start()
     {
         PlayNextTrack();
-        StartCoroutine(WaitAndPlayTracks());
+        //StartCoroutine(WaitAndPlayTracks());
+    }
+
+    private void Update() 
+    {
+        if(_audioSource.time >= _audioSource.clip.length)
+        {
+            PlayNextTrack();
+        }
     }
 
     private IEnumerator WaitAndPlayTracks()
     {
         for(int i=0; i<backgroundMusicClips.Length; i++)
         {
+            Debug.Log("Length: " + _audioSource.clip.length + ", time: " + _audioSource.time);
             yield return new WaitForSeconds(_audioSource.clip.length);
             PlayNextTrack();
         }
-        
     }
 
     private void PlayNextTrack()
