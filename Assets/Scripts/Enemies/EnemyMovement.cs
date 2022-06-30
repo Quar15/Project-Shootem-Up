@@ -64,6 +64,7 @@ public class EnemyMovement : MonoBehaviour
         float fractionOfJourney = (((Time.time - t) * _speed) / Vector3.Distance(startingPosition, checkpointTransforms[currCheckpointIndex].position));
         
         transform.position = Vector3.Lerp(startingPosition, checkpointTransforms[currCheckpointIndex].position, fractionOfJourney);
+        transform.LookAt(checkpointTransforms[currCheckpointIndex].position);
         if(fractionOfJourney > 0.99)
         {
             currCheckpointIndex++;

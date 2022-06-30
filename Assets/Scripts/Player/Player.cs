@@ -95,6 +95,7 @@ public class Player : MonoBehaviour
             return;
         }
             
+        Cursor.visible = false;
         
         _playerInput = playerInput;
         playerInput.actions["Move"].performed += OnMove;
@@ -140,6 +141,9 @@ public class Player : MonoBehaviour
 
     void OnPaused(InputAction.CallbackContext context)
     {
+        if(!hpSystem.IsAlive())
+            return;
+        
         pauseMenu.PauseSwitch();
     }
 
